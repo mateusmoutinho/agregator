@@ -1,6 +1,6 @@
 
 
-function create_agregator(agregation_model,verifiver_model,total_verification)
+function create_agregator(agregation_model,output)
     
     local agregator  ={}
     local instructions_md = dtw.load_file(current_dir.."../assets/instructions.md")
@@ -32,11 +32,12 @@ function create_agregator(agregation_model,verifiver_model,total_verification)
         local digested = agregator.digest(file_content)
         if digested then 
             print("file digested: " .. file_path)
+            dtw.write_file(output, agregator.content)
         else
             print("file not digested: " .. file_path)
         end
     end
-    
+
     agregator.digest_dir = function(dirname)
         local files = dtw.list_files_recursively(dirname)
         for _, file in ipairs(files) do
