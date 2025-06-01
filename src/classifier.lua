@@ -1,5 +1,5 @@
 -- return true if good and false if bad or nil if not sure
-function clasify_modification_once(props)
+function clasify_modification_once(props, old, new, goal_instructions   )
     local MAX_TRIES = 5
     for i = 1, MAX_TRIES do
         local llm = newLLM({model = props.classifier_model})
@@ -12,8 +12,9 @@ function clasify_modification_once(props)
             set as bad if redundant information was added 
             set as bad if non-related information to the goals was set
         ]])
-        llm.add_user_prompt("old: " .. props.old .. "\n")
-        llm.add_user_prompt("new: " .. props.new .. "\n")
+        llm.add_user_prompt("old: " .. old .. "\n")
+        llm.add_user_prompt("new: " .. new .. "\n")
+        llm.add_user_prompt("goal instructions: " .. goal_instructions .. "\n")
         llm.add_user_prompt("goal instructions: " .. props.goal_instructions .. "\n")
         local is_good = nil
 
@@ -31,10 +32,10 @@ function clasify_modification_once(props)
     end
     error("Classifier failed to classify the modification after " .. MAX_TRIES .. " tries.")
 end
-function clasify_modification(props)
+function clasify_modification(props,old,new,goal_instructions)
     local positive_count = 0
     for i = 1, props.total_classifications do
-        local result = clasify_modification_once(props)
+        local result = clasify_modification_once(props,old,new,goal_instructions )
         if result == true then
             print(string.format("Classification %d: Positive", i))
             positive_count = positive_count + 1

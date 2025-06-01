@@ -32,7 +32,8 @@ function create_agregator(start_content, documentation_goal, output, classificat
 
 
         if generated_content then 
-            local insert = clasify_modification(classification_props)
+      
+            local insert = clasify_modification(classification_props, agregator.content, generated_content, documentation_goal)
             if insert then 
                 agregator.content = generated_content
                 return "inserted"
