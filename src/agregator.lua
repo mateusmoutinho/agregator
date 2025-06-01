@@ -1,13 +1,13 @@
 
 
-function create_agregator(agregation_model,output)
+function create_agregator(start_content, output)
     
     local agregator  ={}
     local instructions_md = dtw.load_file(current_dir.."../assets/instructions.md")
-    agregator.content = ""
+    agregator.content = start_content or ""
     agregator.digest = function(content)
         local agregated = false 
-        local llm = newLLM({model=agregation_model})
+        local llm = newLLM()
          llm.add_system_prompt(instructions_md)  
 
          llm.add_function(
