@@ -65,7 +65,6 @@ function create_agregator(start_content, documentation_goal, output)
                 end
             end
         end
-        print("Found " .. #files .. " files to digest.")
         local randonizer = dtw.newRandonizer()
         -- Shuffle the files randomly
         for i=1,#files *10 do
