@@ -35,7 +35,7 @@ function clasify_modification(props)
     local positive_count = 0
 
     for i = 1, props.total_classifications do
-        local result = clasify_modification_once(props.old, props.new, props.goal_instructions, props.classifier_model)
+        local result = clasify_modification_once(props)
         if result == true then
             print(string.format("Classification %d: Positive", i))
             positive_count = positive_count + 1
