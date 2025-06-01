@@ -93,6 +93,7 @@ function create_agregator(start_content, documentation_goal, output, classificat
             files[second_index] = temp
         end
         for _, current_file in ipairs(files) do
+            print("\n\ndigesting file: " .. current_file)
             agregator.digest_file(current_file)
         end
         
