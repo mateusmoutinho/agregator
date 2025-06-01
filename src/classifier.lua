@@ -36,15 +36,11 @@ function clasify_modification(props,old,new,goal_instructions)
     for i = 1, props.total_classifications do
         local result = clasify_modification_once(props,old,new,goal_instructions )
         if result == true then
-            print(string.format("Classification %d: Positive", i))
             positive_count = positive_count + 1
         end
-        if result == false then
-            print(string.format("Classification %d: Negative", i))
-        end
+    
     end
 
     local positive_percent = (positive_count / props.total_classifications) * 100
-    print(string.format("Positive classifications: %d/%d (%.2f%%)", positive_count, props.total_classifications, positive_percent))
     return positive_percent >= props.min_positive_percent
 end
