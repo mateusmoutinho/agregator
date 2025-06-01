@@ -36,7 +36,8 @@ function create_agregator(start_content, documentation_goal, output, classificat
             if insert then 
                 agregator.content = generated_content
                 return "inserted"
-            else 
+            end 
+            if not insert then 
                 return "denied by the classifier"
             end
         end
