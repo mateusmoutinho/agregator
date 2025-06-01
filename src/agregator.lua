@@ -16,7 +16,8 @@ function create_agregator(start_content, documentation_goal, output)
          {{
             name = "content",
             type = "string",
-            description = "The content to be set"
+            description = "The content to be set",
+            required=true
          }},
          function(args)
             agregated = true
