@@ -3,6 +3,7 @@ function create_agregator(start_content, documentation_goal, output)
     local agregator  ={}
     local instructions_md = dtw.load_file(script_dir_name.."../assets/instructions.md")
     agregator.content = start_content or ""
+    local aready_digest = {}    
     agregator.digest = function(content,filename)
         local agregated = false 
         local llm = newLLM()
@@ -33,6 +34,14 @@ function create_agregator(start_content, documentation_goal, output)
     end 
 
     agregator.digest_file = function(file_path)
+        for _, already_digested in ipairs(aready_digest) do
+            if already_digested == file_path then
+                print("file already digested: " .. file_path)
+                return
+            end
+        end
+        table.insert(aready_digest, file_path)
+        
         local file_content = dtw.load_file(file_path)
         local digested = agregator.digest(file_content,file_path)
         if digested then 
@@ -43,41 +52,24 @@ function create_agregator(start_content, documentation_goal, output)
         end
     end
 
-    agregator.digest_dir = function(dirname)
-        local files = dtw.list_files_recursively(dirname,true)
-        
-        -- Randomize file order
-        math.randomseed(os.time())
-        for i = #files, 2, -1 do
-            local j = math.random(i)
-            files[i], files[j] = files[j], files[i]
-        end
-        
-        for _, file in ipairs(files) do
-            agregator.digest_file(file)
-        end
-    end 
-    
-    agregator.digest_path = function(path)
-        if dtw.isfile(path) then
-            return agregator.digest_file(path)
-        elseif dtw.isdir(path) then
-            return agregator.digest_dir(path)
-        else
-            error("Invalid path: " .. path)
-        end
-    end 
+
     agregator.digest_path_list = function(path_list)
-        -- Randomize path list order
-        math.randomseed(os.time())
-        for i = #path_list, 2, -1 do
-            local j = math.random(i)
-            path_list[i], path_list[j] = path_list[j], path_list[i]
+        local files = {}
+        for _, path in ipairs(path_list) do
+            if dtw.isfile(path)  then
+                table.insert(files, path)
+            elseif dtw.isdir(path) then
+                local dir_files = dtw.list_files_recursively(path, true)
+                for _, file in ipairs(dir_files) do
+                    table.insert(files, file)
+                end
+            end
+        end
+
+        for _, current_file in ipairs(files) do
+            agregator.digest_file(current_file)
         end
         
-        for _, path in ipairs(path_list) do
-            agregator.digest_path(path)
-        end
     end
     return agregator
 end
