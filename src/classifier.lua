@@ -15,7 +15,6 @@ function clasify_modification_once(props, old, new, goal_instructions   )
         llm.add_user_prompt("old: " .. old .. "\n")
         llm.add_user_prompt("new: " .. new .. "\n")
         llm.add_user_prompt("goal instructions: " .. goal_instructions .. "\n")
-        llm.add_user_prompt("goal instructions: " .. props.goal_instructions .. "\n")
         local is_good = nil
 
         llm.add_function("set_as_good", "set as good", {}, function()
