@@ -83,10 +83,5 @@ ELSE:
 - The function will handle storing and saving the content - you just need to pass the complete updated text
 - Without using this function, your changes will not be saved
 
-### Example Usage
-```
-// After merging new information with existing content
-set_content("Complete updated documentation text with newly integrated information...")
-```
 
 **Remember**: Your goal is to create comprehensive, accurate, and useful documentation by intelligently aggregating relevant information from multiple sources while staying focused on the user's specific documentation objectives. Always use set_content to update the documentation, never return the content in your response.
