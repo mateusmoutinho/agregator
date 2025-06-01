@@ -4,17 +4,7 @@ relative_load("classifier.lua")
 
 function main()
 
-    local classification = clasify_modification(
-        dtw.load_file("saida1.md"),
-        dtw.load_file("saida2.md"),
-        "create a full documentation making a sumary of each route of the application, include headders,params  ",
-        10,
-        8
-    )
-    print("Classification result: ", classification)
-
-
-    if true then return end 
+ 
     local paths_size = argv.get_flag_size(PATHS)
     local paths = {}
     for i=1,paths_size do 
@@ -44,7 +34,7 @@ function main()
         entrie_content,
         goal,
         output,
-        {total_classifications=3,min_positive_percent=50},
+        {total_classifications=3,min_positive_percent=50}
     )   
     agregator.digest_path_list(paths)
     print("Aggregation completed.")

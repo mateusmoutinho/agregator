@@ -33,7 +33,6 @@ function clasify_modification_once(props)
 end
 function clasify_modification(props)
     local positive_count = 0
-
     for i = 1, props.total_classifications do
         local result = clasify_modification_once(props)
         if result == true then
