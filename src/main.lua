@@ -39,10 +39,12 @@ function main()
     if not goal  then 
         error("--goal are required")
     end 
+
     local agregator = create_agregator(
         entrie_content,
         goal,
-        output
+        output,
+        {total_classifications=3,min_positive_percent=50},
     )   
     agregator.digest_path_list(paths)
     print("Aggregation completed.")
