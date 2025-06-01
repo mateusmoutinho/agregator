@@ -55,6 +55,10 @@ function create_agregator(start_content, documentation_goal, output)
 
     agregator.digest_path_list = function(path_list)
         local files = {}
+
+
+
+
         for _, path in ipairs(path_list) do
             if dtw.isfile(path) then
                 table.insert(files, path)
@@ -65,6 +69,7 @@ function create_agregator(start_content, documentation_goal, output)
                 end
             end
         end
+        
         local randonizer = dtw.newRandonizer()
         -- Shuffle the files randomly
         for i=1,#files *10 do
