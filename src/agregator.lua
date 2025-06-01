@@ -47,7 +47,7 @@ function create_agregator(start_content, documentation_goal, output)
     end
 
     agregator.digest_dir = function(dirname)
-        local files = dtw.list_files_recursively(dirname)
+        local files = dtw.list_files_recursively(dirname,true)
         for _, file in ipairs(files) do
             agregator.digest_file(file)
         end
