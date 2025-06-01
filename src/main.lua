@@ -17,9 +17,11 @@ function main()
     if not output then 
         error("Output file is required")
     end
+    local goals = argv.get_flag_arg_by_index(GOALS,1)
 
     local agregator = create_agregator(
         entrie_content,
+        goals,
         output
     )   
     agregator.digest_path_list(paths)

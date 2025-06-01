@@ -1,6 +1,6 @@
 
 
-function create_agregator(start_content, output)
+function create_agregator(start_content, documentation_goals, output)
     
     local agregator  ={}
     local instructions_md = dtw.load_file(current_dir.."../assets/instructions.md")
@@ -9,10 +9,10 @@ function create_agregator(start_content, output)
         local agregated = false 
         local llm = newLLM()
          llm.add_system_prompt(instructions_md)  
-
+        llm.add_user_prompt("\ndocumentation goals:"..documentation_goal.."\n------------\n")
          llm.add_function(
           "set_content",
-          "set the formmated content",
+          "set the formatted content",
          {{
             name = "content",
             type = "string",
