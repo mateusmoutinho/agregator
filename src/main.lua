@@ -4,11 +4,12 @@ relative_load("classifier.lua")
 
 function main()
 
-    local classification = clasify_modification_once(
+    local classification = clasify_modification(
         dtw.load_file("saida1.md"),
         dtw.load_file("saida2.md"),
-        "create a full documentation making a sumary of each route of the application, include headders,params  "
-    
+        "create a full documentation making a sumary of each route of the application, include headders,params  ",
+        10,
+        8
     )
     print("Classification result: ", classification)
 
