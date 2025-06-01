@@ -56,7 +56,7 @@ function create_agregator(start_content, documentation_goal, output)
     agregator.digest_path_list = function(path_list)
         local files = {}
         for _, path in ipairs(path_list) do
-            if dtw.isfile(path)  then
+            if dtw.isfile(path) then
                 table.insert(files, path)
             elseif dtw.isdir(path) then
                 local dir_files = dtw.list_files_recursively(path, true)
@@ -65,7 +65,17 @@ function create_agregator(start_content, documentation_goal, output)
                 end
             end
         end
-
+        print("Found " .. #files .. " files to digest.")
+        local randonizer = dtw.newRandonizer()
+        -- Shuffle the files randomly
+        for i=1,#files *10 do
+            local first_index = randonizer.generate_num(#files) +1 
+            local second_index = randonizer.generate_num(#files) +1 
+            --print("swapping " .. first_index .. " with " .. second_index)
+            local temp = files[first_index]
+            files[first_index] = files[second_index]
+            files[second_index] = temp
+        end
         for _, current_file in ipairs(files) do
             agregator.digest_file(current_file)
         end
