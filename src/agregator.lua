@@ -30,7 +30,6 @@ function create_agregator(start_content, documentation_goal, output)
          end
         )
         local response = llm.generate()
-        print(response)
         return agregated
     end 
 
