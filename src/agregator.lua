@@ -5,7 +5,7 @@ function create_agregator(start_content, documentation_goal, output, classificat
     agregator.content = start_content or ""
     local aready_digest = {}    
     agregator.digest = function(content,filename)
-        local generated_content = ""
+        local generated_content = nil
         local llm = newLLM()
         llm.add_system_prompt("old content:"..agregator.content.."\n---------------\n")
         llm.add_user_prompt("\ndocumentation goals:"..documentation_goal.."\n------------\n")

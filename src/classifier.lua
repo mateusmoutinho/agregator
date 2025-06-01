@@ -33,6 +33,8 @@ function clasify_modification_once(props, old, new, goal_instructions   )
     error("Classifier failed to classify the modification after " .. MAX_TRIES .. " tries.")
 end
 function clasify_modification(props,old,new,goal_instructions)
+--print(json.dumps_to_string({props,old,new,goal_instructions}))
+
     local positive_count = 0
     for i = 1, props.total_classifications do
         local result = clasify_modification_once(props,old,new,goal_instructions )
@@ -45,7 +47,6 @@ function clasify_modification(props,old,new,goal_instructions)
         end
     
     end
-
     local positive_percent = (positive_count / props.total_classifications) * 100
     print(string.format("Positive classifications: %d/%d (%.2f%%)", positive_count, props.total_classifications, positive_percent))
     return positive_percent >= props.min_positive_percent
