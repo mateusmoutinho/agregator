@@ -18,6 +18,7 @@ function clasify_modification_once(props, old, new, goal_instructions   )
         local is_good = nil
 
         llm.add_function("set_as_good", "set as good", {}, function()
+    
             is_good = true
         end)
         llm.add_function("set_as_bad", "set as bad", {}, function()
@@ -36,7 +37,11 @@ function clasify_modification(props,old,new,goal_instructions)
     for i = 1, props.total_classifications do
         local result = clasify_modification_once(props,old,new,goal_instructions )
         if result == true then
+            print(string.format("Classification %d: Good modification", i))
             positive_count = positive_count + 1
+        end
+        if result == false then
+            print(string.format("Classification %d: Bad modification", i))
         end
     
     end
