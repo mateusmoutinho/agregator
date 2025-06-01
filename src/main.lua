@@ -15,13 +15,15 @@ function main()
     end
     local output = argv.get_flag_arg_by_index(OUTPUT, 1)
     if not output then 
-        error("Output file is required")
+        error("--output file is required")
     end
-    local goals = argv.get_flag_arg_by_index(GOALS,1)
-
+    local goal = argv.get_flag_arg_by_index(GOAL,1)
+    if not goal  then 
+        error("--goal are required")
+    end 
     local agregator = create_agregator(
         entrie_content,
-        goals,
+        goal,
         output
     )   
     agregator.digest_path_list(paths)
