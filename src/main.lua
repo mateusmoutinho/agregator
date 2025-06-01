@@ -34,7 +34,7 @@ function main()
         entrie_content,
         goal,
         output,
-        {total_classifications=3,min_positive_percent=50}
+        {total_classifications=5,min_positive_percent=50}
     )   
     agregator.digest_path_list(paths)
     print("Aggregation completed.")
