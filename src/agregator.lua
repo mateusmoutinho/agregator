@@ -14,7 +14,7 @@ function create_agregator(start_content, documentation_goal, output)
         llm.add_system_prompt("use the set_content function to set the content of the agregation")
         llm.add_function(
           "set_content",
-          "set the formatted content",
+          "set the content to the doc",
          {{
             name = "content",
             type = "string",
@@ -26,7 +26,8 @@ function create_agregator(start_content, documentation_goal, output)
             agregator.content = args.content
          end
         )
-         llm.generate()
+        local response = llm.generate()
+        print(response)
         return agregated
     end 
 
