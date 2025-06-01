@@ -7,7 +7,10 @@ function main()
     for i=1,paths_size do 
         paths[i] = argv.get_flag_arg_by_index(PATHS, i)
     end 
-
+    if #paths == 0 then 
+        error("At least one path is required")
+    end
+    
     local entrie_content = ""
     local eentrie_file = argv.get_flag_arg_by_index(ENTRIES, 1)
     if entrie_file then 

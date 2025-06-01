@@ -1,9 +1,9 @@
 
 
-function create_agregator(start_content, documentation_goals, output)
+function create_agregator(start_content, documentation_goal, output)
     
     local agregator  ={}
-    local instructions_md = dtw.load_file(current_dir.."../assets/instructions.md")
+    local instructions_md = dtw.load_file(script_dir_name.."../assets/instructions.md")
     agregator.content = start_content or ""
     agregator.digest = function(content)
         local agregated = false 
