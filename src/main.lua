@@ -12,10 +12,12 @@ function main()
     end
     
     local entrie_content = ""
-    local eentrie_file = argv.get_flag_arg_by_index(ENTRIES, 1)
+    local entrie_file = argv.get_flag_arg_by_index(ENTRIES, 1)
     if entrie_file then 
-        entrie_content = dtw.load_file(eentrie_file)
+        entrie_content = dtw.load_file(entrie_file)
     end
+
+    
     local output = argv.get_flag_arg_by_index(OUTPUT, 1)
     if not output then 
         error("--output file is required")
