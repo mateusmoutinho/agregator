@@ -1,7 +1,19 @@
 relative_load("agregator.lua")
 relative_load("flags.lua")
+relative_load("classifier.lua")
 
 function main()
+
+    local classification = clasify_modification_once(
+        "saida1.md",
+        "saida2.md",
+        "create a full documentation making a sumary of each route of the application, include headders,params  "
+    
+    )
+    print("Classification result: ", classification)
+
+
+    if true then return end 
     local paths_size = argv.get_flag_size(PATHS)
     local paths = {}
     for i=1,paths_size do 
