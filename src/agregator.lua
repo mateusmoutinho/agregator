@@ -1,5 +1,3 @@
-
-
 function create_agregator(start_content, documentation_goal, output)
     
     local agregator  ={}
@@ -47,10 +45,19 @@ function create_agregator(start_content, documentation_goal, output)
 
     agregator.digest_dir = function(dirname)
         local files = dtw.list_files_recursively(dirname,true)
+        
+        -- Randomize file order
+        math.randomseed(os.time())
+        for i = #files, 2, -1 do
+            local j = math.random(i)
+            files[i], files[j] = files[j], files[i]
+        end
+        
         for _, file in ipairs(files) do
             agregator.digest_file(file)
         end
     end 
+    
     agregator.digest_path = function(path)
         if dtw.isfile(path) then
             return agregator.digest_file(path)
@@ -61,6 +68,13 @@ function create_agregator(start_content, documentation_goal, output)
         end
     end 
     agregator.digest_path_list = function(path_list)
+        -- Randomize path list order
+        math.randomseed(os.time())
+        for i = #path_list, 2, -1 do
+            local j = math.random(i)
+            path_list[i], path_list[j] = path_list[j], path_list[i]
+        end
+        
         for _, path in ipairs(path_list) do
             agregator.digest_path(path)
         end
