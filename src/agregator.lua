@@ -29,8 +29,14 @@ function create_agregator(agregation_model,verifiver_model,total_verification)
 
     agregator.digest_file = function(file_path)
         local file_content = dtw.load_file(file_path)
-        return agregator.digest(file_content)
+        local digested = agregator.digest(file_content)
+        if digested then 
+            print("file digested: " .. file_path)
+        else
+            print("file not digested: " .. file_path)
+        end
     end
+    
     agregator.digest_dir = function(dirname)
         local files = dtw.list_files_recursively(dirname)
         for _, file in ipairs(files) do
