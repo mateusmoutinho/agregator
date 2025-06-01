@@ -10,7 +10,7 @@ function clasify_modification_once(props, old, new, goal_instructions   )
             you must use the function set_as_good() or set_as_bad() to classify the modification.
             set as bad if useful content was removed,
             set as bad if redundant information was added 
-            set as bad if non-related information to the goals was set
+            set as bad if non-related information to the goals was set,
         ]])
         llm.add_user_prompt("old: " .. old .. "\n")
         llm.add_user_prompt("new: " .. new .. "\n")
