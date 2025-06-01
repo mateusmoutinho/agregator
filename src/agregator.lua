@@ -5,12 +5,16 @@ function create_agregator(start_content, documentation_goal, output)
     local agregator  ={}
     local instructions_md = dtw.load_file(script_dir_name.."../assets/instructions.md")
     agregator.content = start_content or ""
-    agregator.digest = function(content)
+    agregator.digest = function(content,filename)
         local agregated = false 
         local llm = newLLM()
         llm.add_system_prompt(instructions_md)  
         llm.add_system_prompt("old content:"..agregator.content.."\n---------------\n")
         llm.add_user_prompt("\ndocumentation goals:"..documentation_goal.."\n------------\n")
+        if filename then 
+            llm.add_user_prompt("filename:"..filename.."\n")
+        end 
+        llm.add_user_prompt("file-content:"..content.."\n---------\n")    
         
             llm.add_function(
           "set_content",
@@ -33,7 +37,7 @@ function create_agregator(start_content, documentation_goal, output)
 
     agregator.digest_file = function(file_path)
         local file_content = dtw.load_file(file_path)
-        local digested = agregator.digest(file_content)
+        local digested = agregator.digest(file_content,file_path)
         if digested then 
             print("file digested: " .. file_path)
             dtw.write_file(output, agregator.content)
