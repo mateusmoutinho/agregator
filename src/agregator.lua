@@ -1,11 +1,11 @@
-function create_agregator(start_content, documentation_goal, output)
+function create_agregator(start_content, documentation_goal, output, classification_props)
     
     local agregator  ={}
     local instructions_md = dtw.load_file(script_dir_name.."../assets/instructions.md")
     agregator.content = start_content or ""
     local aready_digest = {}    
     agregator.digest = function(content,filename)
-        local agregated = false 
+        local generated_content = ""
         local llm = newLLM()
         llm.add_system_prompt("old content:"..agregator.content.."\n---------------\n")
         llm.add_user_prompt("\ndocumentation goals:"..documentation_goal.."\n------------\n")
@@ -25,12 +25,24 @@ function create_agregator(start_content, documentation_goal, output)
             required=true
          }},
          function(args)
-            agregated = true
-            agregator.content = args.content
+            generated_content= args.content
          end
         )
-        local response = llm.generate()
-        return agregated
+        llm.generate()
+
+
+        if generated_content then 
+            local insert = clasify_modification(classification_props)
+            if insert then 
+                agregator.content = generated_content
+                return "inserted"
+            else 
+                return "denied by the classifier"
+            end
+        end
+        
+        return "not inserted"
+
     end 
 
     agregator.digest_file = function(file_path)
@@ -43,13 +55,11 @@ function create_agregator(start_content, documentation_goal, output)
         table.insert(aready_digest, file_path)
         
         local file_content = dtw.load_file(file_path)
-        local digested = agregator.digest(file_content,file_path)
-        if digested then 
-            print("file digested: " .. file_path)
+        local result  = agregator.digest(file_content,file_path)
+        print("file digested:" .. file_path.." result: " .. tostring(result))
+        if result == "inserted" then 
             dtw.write_file(output, agregator.content)
-        else
-            print("file not digested: " .. file_path)
-        end
+        end 
     end
 
 
