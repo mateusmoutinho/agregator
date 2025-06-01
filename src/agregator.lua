@@ -8,9 +8,11 @@ function create_agregator(start_content, documentation_goal, output)
     agregator.digest = function(content)
         local agregated = false 
         local llm = newLLM()
-         llm.add_system_prompt(instructions_md)  
+        llm.add_system_prompt(instructions_md)  
+        llm.add_system_prompt("old content:"..agregator.content.."\n---------------\n")
         llm.add_user_prompt("\ndocumentation goals:"..documentation_goal.."\n------------\n")
-         llm.add_function(
+        llm.add_system_prompt("use the set_content function to set the content of the agregation")
+        llm.add_function(
           "set_content",
           "set the formatted content",
          {{
