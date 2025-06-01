@@ -6,6 +6,9 @@ function clasify_modification_once(old,new,goal_instructions,classifier_model)
         you are a classifier that determines if a modification is good or bad based on the goal instructions provided.
         use the function set_as_good() to set the modification as good and set_as_bad() to set it as bad.
         you must use the function set_as_good() or set_as_bad() to classify the modification.
+        set as bad if usefull contennt wore removed,
+        set as bad if redundant information was added 
+        set as bad if non related information to the goals were setted
     ]])
     llm.add_user_prompt("old: " .. old.."\n")
     llm.add_user_prompt("new: " .. new .. "\n")
