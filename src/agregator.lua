@@ -7,17 +7,17 @@ function create_agregator(start_content, documentation_goal, output)
     agregator.digest = function(content,filename)
         local agregated = false 
         local llm = newLLM()
-        llm.add_system_prompt(instructions_md)  
         llm.add_system_prompt("old content:"..agregator.content.."\n---------------\n")
         llm.add_user_prompt("\ndocumentation goals:"..documentation_goal.."\n------------\n")
         if filename then 
             llm.add_user_prompt("filename:"..filename.."\n")
         end 
         llm.add_user_prompt("file-content:"..content.."\n---------\n")    
+        llm.add_system_prompt(instructions_md)  
         
             llm.add_function(
           "set_content",
-          "set the content to the doc",
+          "set the content of the agregator",
          {{
             name = "content",
             type = "string",
